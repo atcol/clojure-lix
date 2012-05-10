@@ -1,4 +1,5 @@
-(ns lix.core)
+(ns lix.core
+  :use cloure.string)
 
 ;From http://en.wikipedia.org/wiki/LIX
 ;
@@ -21,6 +22,12 @@
   "Count the number of periods -- full-stop, colon or capital first letter -- in the given string s"
   [s] 
   ())
+
+(defn naive-lix
+  [s]
+  (let
+    [wds (clojure.string/split s #"\s+")]
+    (println wds)))
 
 (defn lix
   "Calculate the LIX score for the given string s"
