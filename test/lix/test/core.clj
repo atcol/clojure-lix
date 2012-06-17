@@ -2,9 +2,9 @@
   (:use [lix.core])
   (:use [clojure.test]))
 
-;(deftest lix-yields-zeros
-  ;(is (= 0 (lix "")))
-  ;(is (= 0 (lix "123456nowordsorpunctuation"))))
+(deftest lix-yields-zeros
+  (is (= 0 (lix "")))
+  (is (= 0 (lix "123456nowordsorpunctuation"))))
 
 ;(deftest lix-yields-non-zeros
   ;(is (< 0 (lix "Hello there, this is some good text.")))
@@ -57,8 +57,6 @@
   (is (= false (is-capital? \;))))
 
 (deftest num-periods-count
-  (is (= 1 (num-periods ",oh")))
-  (is (= 2 (num-periods ".Oh")))
   (is (= 0 (num-periods "this"))) ; stuff shouldn't have any periods #'; <>? / ) ( =+- _____ 1234567890 !\"£$%^&*()"))) 
   (is (= 1 (num-periods "Hello"))) ; there-"))) ; 1 cap first letter
   (is (= 0 (num-periods "there+"))) ; 1 cap first letter
