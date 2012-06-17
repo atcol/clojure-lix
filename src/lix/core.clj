@@ -18,7 +18,7 @@
   "Return true if the given one-char-string is a . or ,"
   (if (= "" c) 
     false
-    (or (= \. c) (= \, c))))
+    (or (= \. c) (= \, c) (is-capital? c))))
 
 (defn num-periods
   "Count the number of periods -- full-stop, colon or capital first letter -- in the given word w"
