@@ -28,20 +28,19 @@
   (is (= 0 (is-long-word "!"))))
 
 (deftest is-period-yields-true
-  (is (= true (is-period? ".")))
-  (is (= true (is-period? "F")))
-  (is (= true (is-period? ",")))
-  (is (= true (is-period? "A")))
-  (is (= true (is-period? "Z"))))
+  (is (= true (is-period? \.)))
+  (is (= true (is-period? \F)))
+  (is (= true (is-period? \,)))
+  (is (= true (is-period? \A)))
+  (is (= true (is-period? \Z))))
 
 (deftest is-period-yields-false
-  (is (= false (is-period? "")))
-  (is (= false (is-period? "1")))
-  (is (= false (is-period? "a")))
-  (is (= false (is-period? "moo")))
-  (is (= false (is-period? ";")))
-  (is (= false (is-period? "!")))
-  (is (= false (is-period? "/"))))
+  (is (= false (is-period? \1)))
+  (is (= false (is-period? \a)))
+  (is (= false (is-period? \m)))
+  (is (= false (is-period? \;)))
+  (is (= false (is-period? \!)))
+  (is (= false (is-period? \/))))
 
 (deftest is-capital-yields-true
   (is (= true (is-capital? \A)))
