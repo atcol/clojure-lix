@@ -43,13 +43,28 @@
   (is (= false (is-period? "!")))
   (is (= false (is-period? "/"))))
 
+(deftest is-capital-yields-true
+  (is (= true (is-capital? \A)))
+  (is (= true (is-capital? \B)))
+  (is (= true (is-capital? \J)))
+  (is (= true (is-capital? \Z)))
+  (is (= true (is-capital? \E))))
+
+(deftest is-capital-yields-false
+  (is (= true (is-capital? \a)))
+  (is (= true (is-capital? \b)))
+  (is (= true (is-capital? \j)))
+  (is (= true (is-capital? \z)))
+  (is (= true (is-capital? \;))))
+
 (deftest num-periods-count
   (is (= 1 (num-periods ",oh no! said the wolf")))
   (is (= 0 (num-periods "this stuff shouldn't have any periods #'; <>? / ) ( =+- _____ 1234567890 !\"£$%^&*()"))) 
   (is (= 1 (num-periods "Hello there-"))) ; 1 cap first letter
   (is (= 1 (num-periods "Hello there+"))) ; 1 cap first letter
   (is (= 2 (num-periods "Hello there.")))
-  (is (= 3 (num-periods "Hello There."))) ; 2 caps + 1 .
+  (is (= 0 (num-periods "helLo"))) ; no periods
+  (is (= 2 (num-periods "Hello There."))) ; 1 caps first letter + 1 .
   (is (= 2 (num-periods "Stop, that!"))) ; 1 colon 1 cap first letter
   (is (= 4 (num-periods "No. I won't."))) ; 2 . 2 cap first letter
   (is (= 9 (num-periods "No. I won't. Furthermore, this is such a long sentence compared to the rest one might consider it a paragraph, yet I digress.")))
