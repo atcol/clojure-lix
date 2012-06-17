@@ -29,10 +29,7 @@
 
 (deftest is-period-yields-true
   (is (= true (is-period? \.)))
-  (is (= true (is-period? \F)))
-  (is (= true (is-period? \,)))
-  (is (= true (is-period? \A)))
-  (is (= true (is-period? \Z))))
+  (is (= true (is-period? \,))))
 
 (deftest is-period-yields-false
   (is (= false (is-period? \1)))
@@ -40,7 +37,10 @@
   (is (= false (is-period? \m)))
   (is (= false (is-period? \;)))
   (is (= false (is-period? \!)))
-  (is (= false (is-period? \/))))
+  (is (= false (is-period? \/)))
+  (is (= false (is-period? \A)))
+  (is (= false (is-period? \B)))
+  (is (= false (is-period? \Z))))
 
 (deftest is-capital-yields-true
   (is (= true (is-capital? \A)))
@@ -50,21 +50,21 @@
   (is (= true (is-capital? \E))))
 
 (deftest is-capital-yields-false
-  (is (= true (is-capital? \a)))
-  (is (= true (is-capital? \b)))
-  (is (= true (is-capital? \j)))
-  (is (= true (is-capital? \z)))
-  (is (= true (is-capital? \;))))
+  (is (= false (is-capital? \a)))
+  (is (= false (is-capital? \b)))
+  (is (= false (is-capital? \j)))
+  (is (= false (is-capital? \z)))
+  (is (= false (is-capital? \;))))
 
 (deftest num-periods-count
-  (is (= 1 (num-periods ",oh no! said the wolf")))
-  (is (= 0 (num-periods "this stuff shouldn't have any periods #'; <>? / ) ( =+- _____ 1234567890 !\"£$%^&*()"))) 
-  (is (= 1 (num-periods "Hello there-"))) ; 1 cap first letter
-  (is (= 1 (num-periods "Hello there+"))) ; 1 cap first letter
-  (is (= 2 (num-periods "Hello there.")))
+  (is (= 1 (num-periods ",oh")))
+  (is (= 2 (num-periods ".Oh")))
+  (is (= 0 (num-periods "this"))) ; stuff shouldn't have any periods #'; <>? / ) ( =+- _____ 1234567890 !\"£$%^&*()"))) 
+  (is (= 1 (num-periods "Hello"))) ; there-"))) ; 1 cap first letter
+  (is (= 0 (num-periods "there+"))) ; 1 cap first letter
+  (is (= 2 (num-periods "There.")))
   (is (= 0 (num-periods "helLo"))) ; no periods
-  (is (= 2 (num-periods "Hello There."))) ; 1 caps first letter + 1 .
-  (is (= 2 (num-periods "Stop, that!"))) ; 1 colon 1 cap first letter
-  (is (= 4 (num-periods "No. I won't."))) ; 2 . 2 cap first letter
-  (is (= 9 (num-periods "No. I won't. Furthermore, this is such a long sentence compared to the rest one might consider it a paragraph, yet I digress.")))
-  (is (= 2 (num-periods "Hello there,"))))
+  (is (= 2 (num-periods "HelloThere."))) ; 1 caps first letter + 1 .
+  (is (= 1 (num-periods "Stop"))) ; 1 colon 1 cap first letter
+  (is (= 4 (num-periods "No..."))) ; 2 . 2 cap first letter
+  (is (= 2 (num-periods "Alex,"))))
