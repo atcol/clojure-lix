@@ -9,7 +9,7 @@
 ; C = Number of long words (More than 6 letters)
 
 (defn is-capital?
-  "Return true if the char c's ascii value is > 64 and less than 91"
+  "Return true if the char c's ASCII value is > 64 and less than 91"
   [c]
   (and (> (int c) 64) (< (int c) 91)))
 
@@ -18,12 +18,13 @@
   "Return true if the given one-char-string is a . or ,"
   (if (= "" c) 
     false
-    (or (= \. c) (= \, c) (is-capital? c))))
+    (or (= \. c) (= \, c))))
 
 (defn num-periods
   "Count the number of periods -- full-stop, colon or capital first letter -- in the given word w"
   [w] 
-  (+ (if (is-capital? (first w)) 1 0) (count (filter is-period? (rest w))))) ; first filter is passing chars: why?
+  (count (filter #(or (is-period? %1) (is-capital? %1)) w)))
+  ;(+ (if (is-capital? (first w)) 1 0) (count (filter #(is-period? (Character/toLowerCase %1)) (rest w))))) ; first filter is passing chars: why?
 
 (defn is-long-word 
   "return 1 if long word, 0 otherwise"
