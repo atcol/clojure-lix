@@ -2,19 +2,20 @@
   (:use [lix.core])
   (:use [clojure.test]))
 
-(deftest lix-yields-zeros
-  (is (= 0 (lix "")))
-  (is (= 0 (lix "123456nowordsorpunctuation"))))
+;(deftest lix-yields-zeros
+  ;(is (= 0 (lix "")))
+  ;(is (= 0 (lix "123456nowordsorpunctuation"))))
 
-(deftest lix-yeilds-non-zeros
-  (is (< 0 (lix "Hello there, this is some good text.")))
-  (is (< 0 (lix "Another sentence."))))
+;(deftest lix-yields-non-zeros
+  ;(is (< 0 (lix "Hello there, this is some good text.")))
+  ;(is (< 0 (lix "Another sentence."))))
 
-(deftest lix-score-matches-expected
-  (is (= 1 (lix "Hello there."))); 2/2 + (0 * 100)/2 = 1
-  (is (= 2.333333333 (lix "Hello there, this is some good text.")))) ; 7/3 + (0 * 100)/7 = 2.333333333
+;(deftest lix-score-matches-expected
+  ;(is (= 1 (lix "Hello there."))); 2/2 + (0 * 100)/2 = 1
+  ;(is (= 2.333333333 (lix "Hello there, this is some good text.")))) ; 7/3 + (0 * 100)/7 = 2.333333333
 
 (deftest is-long-word-yields-1
+  (is (= 0 (is-long-word "")))
   (is (= 1 (is-long-word "long-view")))
   (is (= 1 (is-long-word "Antidisestablishmentarianism")))
   (is (= 1 (is-long-word "slurp-tastic")))
@@ -25,3 +26,31 @@
   (is (= 0 (is-long-word "")))
   (is (= 0 (is-long-word "wee")))
   (is (= 0 (is-long-word "!"))))
+
+(deftest is-period-yields-true
+  (is (= true (is-period? ".")))
+  (is (= true (is-period? "F")))
+  (is (= true (is-period? ",")))
+  (is (= true (is-period? "A")))
+  (is (= true (is-period? "Z"))))
+
+(deftest is-period-yields-false
+  (is (= false (is-period? "")))
+  (is (= false (is-period? "1")))
+  (is (= false (is-period? "a")))
+  (is (= false (is-period? "moo")))
+  (is (= false (is-period? ";")))
+  (is (= false (is-period? "!")))
+  (is (= false (is-period? "/"))))
+
+(deftest num-periods-count
+  (is (= 1 (num-periods ",oh no! said the wolf")))
+  (is (= 0 (num-periods "this stuff shouldn't have any periods #'; <>? / ) ( =+- _____ 1234567890 !\"£$%^&*()"))) 
+  (is (= 1 (num-periods "Hello there-"))) ; 1 cap first letter
+  (is (= 1 (num-periods "Hello there+"))) ; 1 cap first letter
+  (is (= 2 (num-periods "Hello there.")))
+  (is (= 3 (num-periods "Hello There."))) ; 2 caps + 1 .
+  (is (= 2 (num-periods "Stop, that!"))) ; 1 colon 1 cap first letter
+  (is (= 4 (num-periods "No. I won't."))) ; 2 . 2 cap first letter
+  (is (= 9 (num-periods "No. I won't. Furthermore, this is such a long sentence compared to the rest one might consider it a paragraph, yet I digress.")))
+  (is (= 2 (num-periods "Hello there,"))))
