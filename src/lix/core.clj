@@ -23,8 +23,9 @@
 (defn num-periods
   "Count the number of periods -- full-stop, colon or capital first letter -- in the given word w"
   [w] 
-  (count (filter #(or (is-period? %1) (is-capital? %1)) w)))
-  ;(+ (if (is-capital? (first w)) 1 0) (count (filter #(is-period? (Character/toLowerCase %1)) (rest w))))) ; first filter is passing chars: why?
+  (let [seed (if (is-capital? (first w)) 1 0) word (if (= 1 seed) (rest w) w)] 
+    ; if first char in w is letter and capital, start at one, then chop the rest off to be parsed
+    (+ seed (count (filter #(is-period? (Character/toLowerCase %1)) word)))))
 
 (defn is-long-word 
   "return 1 if long word, 0 otherwise"
@@ -34,7 +35,7 @@
 (defn- naive-lix
   "A basic, naive implementation of LIX (private); assumes s is not empty"
   [s]
-  ())   ; num words is constant, num periods might be zero 
+  ()) ; num words is constant, num periods might be zero 
   ;(loop
     ;[words (clojure.string/split s #"\s+") n-wds (count words) lng-wds 0 n-pds 1]
     ;(if (empty? words)
