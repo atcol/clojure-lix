@@ -27,42 +27,42 @@
   (is (= 0 (is-long-word "wee")))
   (is (= 0 (is-long-word "!"))))
 
-(deftest is-period-yields-true
-  (is (= true (is-period? \.)))
-  (is (= true (is-period? \,))))
+(deftest period-yields-true
+  (is (= true (period? \.)))
+  (is (= true (period? \,))))
 
-(deftest is-period-yields-false
-  (is (= false (is-period? \1)))
-  (is (= false (is-period? \a)))
-  (is (= false (is-period? \m)))
-  (is (= false (is-period? \;)))
-  (is (= false (is-period? \!)))
-  (is (= false (is-period? \/)))
-  (is (= false (is-period? \A)))
-  (is (= false (is-period? \B)))
-  (is (= false (is-period? \Z))))
+(deftest period-yields-false
+  (is (= false (period? \1)))
+  (is (= false (period? \a)))
+  (is (= false (period? \m)))
+  (is (= false (period? \;)))
+  (is (= false (period? \!)))
+  (is (= false (period? \/)))
+  (is (= false (period? \A)))
+  (is (= false (period? \B)))
+  (is (= false (period? \Z))))
 
-(deftest is-capital-yields-true
-  (is (= true (is-capital? \A)))
-  (is (= true (is-capital? \B)))
-  (is (= true (is-capital? \J)))
-  (is (= true (is-capital? \Z)))
-  (is (= true (is-capital? \E))))
+(deftest capital-yields-true
+  (is (= true (capital? \A)))
+  (is (= true (capital? \B)))
+  (is (= true (capital? \J)))
+  (is (= true (capital? \Z)))
+  (is (= true (capital? \E))))
 
-(deftest is-capital-yields-false
-  (is (= false (is-capital? \a)))
-  (is (= false (is-capital? \b)))
-  (is (= false (is-capital? \j)))
-  (is (= false (is-capital? \z)))
-  (is (= false (is-capital? \;))))
+(deftest capital-yields-false
+  (is (= false (capital? \a)))
+  (is (= false (capital? \b)))
+  (is (= false (capital? \j)))
+  (is (= false (capital? \z)))
+  (is (= false (capital? \;))))
 
 (deftest num-periods-count
-  (is (= 0 (num-periods "this"))) ; stuff shouldn't have any periods #'; <>? / ) ( =+- _____ 1234567890 !\"£$%^&*()"))) 
-  (is (= 1 (num-periods "Hello"))) ; there-"))) ; 1 cap first letter
-  (is (= 0 (num-periods "there+"))) ; 1 cap first letter
+  (is (= 0 (num-periods "this"))) 
+  (is (= 1 (num-periods "Hello"))) 
+  (is (= 0 (num-periods "there+"))) 
   (is (= 2 (num-periods "There.")))
-  (is (= 0 (num-periods "helLo"))) ; no periods
-  (is (= 2 (num-periods "HelloThere."))) ; 1 caps first letter + 1 .
-  (is (= 1 (num-periods "Stop"))) ; 1 colon 1 cap first letter
-  (is (= 4 (num-periods "No..."))) ; 2 . 2 cap first letter
+  (is (= 0 (num-periods "helLo"))) 
+  (is (= 2 (num-periods "HelloThere.")))
+  (is (= 1 (num-periods "Stop"))) 
+  (is (= 4 (num-periods "No...")))
   (is (= 2 (num-periods "Alex,"))))

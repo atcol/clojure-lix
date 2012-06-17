@@ -8,12 +8,12 @@
 ; B = Number of periods (defined by period, colon or capital first letter)
 ; C = Number of long words (More than 6 letters)
 
-(defn is-capital?
+(defn capital?
   "Return true if the char c's ASCII value is > 64 and less than 91"
   [c]
   (and (> (int c) 64) (< (int c) 91)))
 
-(defn is-period?
+(defn period?
   [c]
   "Return true if the given one-char-string is a . or ,"
   (if (= "" c) 
@@ -23,9 +23,9 @@
 (defn num-periods
   "Count the number of periods -- full-stop, colon or capital first letter -- in the given word w"
   [w] 
-  (let [seed (if (is-capital? (first w)) 1 0) word (if (= 1 seed) (rest w) w)]
+  (let [seed (if (capital? (first w)) 1 0) word (if (= 1 seed) (rest w) w)]
     ; if first char in w is letter and capital, start at one, then chop the rest off to be parsed
-    (+ seed (count (filter #(is-period? (Character/toLowerCase %1)) word)))))
+    (+ seed (count (filter #(period? (Character/toLowerCase %1)) word)))))
 
 (defn is-long-word 
   "return 1 if long word, 0 otherwise"
